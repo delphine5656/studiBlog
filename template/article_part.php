@@ -5,9 +5,8 @@
         <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-primary">Catégorie</strong>
             <h3 class="mb-0"><?php echo $article["title"]  ?></h3>
-            <div class="mb-1 text-muted">Nov 12</div>
             <p class="card-text mb-auto"><?php echo $article["description"]  ?></p>
-            <a href="../actualite.php" class="stretched-link">Voir l'article</a>
+            <a href="../actualite.php?id=<?php echo $key ?>" class="stretched-link">Voir l'article</a>
         </div>
         <div class="col-auto d-none d-lg-block">
             <img src="uploads/articles/<?php echo $article["image"] ?>" alt="image de l'article" style="width: 400px;">
