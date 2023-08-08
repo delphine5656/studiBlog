@@ -2,5 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$USER_HOME$/Downloads/studi_techtrendz-master/studi_techtrendz-master/studi_techtrendz.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/lib/article.php" dialect="GenericSQL" />
   </component>
 </project>

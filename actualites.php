@@ -1,6 +1,10 @@
 <?php
 require_once "template/header.php";
 require "lib/article.php";
+require_once "lib/config.php";
+require_once "lib/pdo.php";
+
+$articles = getArticles($pdo);
 ?>
 
     <main>

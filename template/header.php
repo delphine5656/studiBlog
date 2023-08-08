@@ -1,5 +1,7 @@
 <?php
 require_once "lib/menu.php";
+require_once  "lib/config.php";
+require_once "lib/pdo.php";
 
 //recupère le nom de la page sur le serveur
 $currentPage = basename($_SERVER["SCRIPT_NAME"]);
