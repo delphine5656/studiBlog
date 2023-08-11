@@ -1,32 +1,55 @@
 <?php
-require_once "template/header.php";
-require "lib/article.php";
+require_once __DIR__ . "/lib/config.php";
+require_once __DIR__ . "/lib/pdo.php";
+require_once __DIR__ . "/lib/user.php";
+require_once __DIR__ . "/lib/menu.php";
+require_once __DIR__ . "/templates/header.php";
+
+$errors = [];
+
+if (isset($_POST["loginUser"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    $user = verifyUserLoginPassword($pdo, $email, $password);
+    if ($user) {
+        session_regenerate_id(true);
+        $_SESSION["user"] = $user;
+        if ($user["role"] === "user") {
+            header("location: index.php");
+        } elseif ($user["role"] === "admin") {
+            header("location: admin/index.php");
+        }
+
+    } else {
+        $errors[] = "Email ou mot de passe incorrect";
+    }
+}
+
+
 ?>
 
-<main class="form-signin w-100 m-auto">
-    <form>
-        <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-        <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-        </div>
+<h1>Login</h1>
 
-        <div class="form-check text-start my-3">
-            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Remember me
-            </label>
-        </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
-    </form>
-</main>
+<?php foreach ($errors as $error) { ?>
+    <div class="alert alert-danger">
+        <?=$error; ?>
+    </div>
+<?php } ?>
 
-<?php
-require_once  "template/footer.php";
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Mot de passe</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+    </div>
+
+    <input type="submit" value="Connexion" name="loginUser" class="btn btn-primary">
+
+</form>
+
+<?php require_once __DIR__ . "/templates/footer.php"; ?>
